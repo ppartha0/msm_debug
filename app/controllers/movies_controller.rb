@@ -11,15 +11,16 @@ class MoviesController < ApplicationController
   end
 
   def create_row
-    @movie.title = params[:the_title]
-    @movie.year = params[:the_year]
-    @movie.duration = params[:the_duration]
-    @movie.description = params[:the_description]
-    @movie.image_url = params[:the_image_url]
-    @movie.director_id = params[:the_director_id]
+    record = Movie.new
+    record.title = params[:title]
+    record.year = params[:year]
+    record.duration = params[:duration]
+    record.description = params[:description]
+    record.image_url = params[:image_url]
+    record.director_id = params[:director_id]
 
-    @movie.save
-
+    record.save
+    @movie=Movie.find_by title: record.title
     render("show")
   end
 
@@ -42,8 +43,8 @@ class MoviesController < ApplicationController
   end
 
   def destroy
-    movie = Movie.find(params[:id])
+    @movie = Movie.find(params[:id])
 
-    movie.destroy
+    @movie.destroy
   end
 end
